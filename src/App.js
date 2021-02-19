@@ -137,7 +137,7 @@ const App = () => {
           <Typography variant="h6">COVID-19 Tracker</Typography>
           <div style={{ marginLeft: "auto" }}>
             <Tooltip title="Github Source">
-              <IconButton color="inherit" href="https://covid19.mathdro.id/api/" target="_blank" rel="noopener noreferrer">
+              <IconButton color="inherit" href="https://github.com/nabeelfarid/covid19-tracker" target="_blank" rel="noopener noreferrer">
                 <GitHubIcon></GitHubIcon>
               </IconButton>
             </Tooltip>
