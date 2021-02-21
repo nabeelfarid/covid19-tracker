@@ -24,11 +24,11 @@ body {
 }
 
 .recovered {
-  border-bottom: 10px solid rgb(0, 250, 0, 0.5);
+  border-bottom: 10px solid rgb(0, 255, 0, 0.5);
 }
 
 .deaths {
-  border-bottom: 10px solid rgba(250, 0, 0, 0.5);
+  border-bottom: 10px solid rgba(255, 0, 0, 0.5);
 }
 
 .countryPicker {
