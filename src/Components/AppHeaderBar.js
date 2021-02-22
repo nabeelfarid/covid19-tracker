@@ -15,7 +15,7 @@ export const AppHeaderBar = () => {
             </IconButton>
           </Tooltip>
           <Tooltip title="Covid-19 API Source">
-            <IconButton color="inherit" href="https://corona.lmao.ninja/" target="_blank" rel="noopener noreferrer">
+            <IconButton color="inherit" href="https://disease.sh" target="_blank" rel="noopener noreferrer">
               <SettingsIcon></SettingsIcon>
             </IconButton>
           </Tooltip>
