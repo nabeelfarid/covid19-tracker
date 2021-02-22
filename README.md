@@ -1,4 +1,4 @@
-OVID-19 Tracker App URL: https://covid19tracker.nabeelfarid.surge.sh/
+COVID-19 Tracker App URL: https://covid19tracker.nabeelfarid.surge.sh/
 
 # Getting Started with COVID-19 Tracker App
 
