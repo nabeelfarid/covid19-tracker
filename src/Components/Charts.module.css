@@ -1,0 +1,8 @@
+/* Add a bit of margin on either side of the graphs, 
+if viewed on bigger screen */
+@media only screen and (min-width: 960px) {
+    .chartContainer {
+      margin-left: 12%;
+      margin-right: 12%;
+    }
+  }
