@@ -1,8 +1,8 @@
-This project makes use of [Material UI](https://material-ui.com/).
+OVID-19 Tracker App URL: https://covid19tracker.nabeelfarid.surge.sh/
 
-# Getting Started with Create React App
+# Getting Started with COVID-19 Tracker App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and it makes use of [Material UI](https://material-ui.com/) and [Open Disease Data](https://disease.sh/)
 
 ## Available Scripts
 
