@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: Covid19 Tracker
+name: Covid Tracker
 
 # Controls when the action will run. 
 on:
@@ -23,22 +23,19 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      # Install Node
       - name: Install Node
-      - uses: actions/setup-node@v2-beta
+        uses: actions/setup-node@v2-beta
         with:
           node-version: 12
-      
-      - name: Install node modules
+          
+      - name: Install Node Modules
         run: npm install
-        
+      
       - name: Build Project
-        run: npm build
-        
+        run: npm run build
+      
       - name: Install Surge
         run: npm install --g surge
-        
-      - name: Deploy
-        run:  surge ./build covid19tracker.nabeelfarid.surge.sh --token ${{secrets.SURGE_TOKEN}}
-        
-        
+      
+      - name: Deploy to Surge
+        run: surge ./build covid19tracker.nabeelfarid.surge.sh/ --token ${{secrets.SURGE_TOKEN}}
