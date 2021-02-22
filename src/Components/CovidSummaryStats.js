@@ -1,5 +1,4 @@
 import { Card, CardContent, Grid, Typography } from '@material-ui/core';
-import React from 'react';
 import CountUp from 'react-countup';
 import styles from './CovidSummaryStats.module.css';
 

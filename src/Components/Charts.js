@@ -1,8 +1,9 @@
 import { Box, Grid } from '@material-ui/core';
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import styles from './Charts.module.css';
-import { Bar, Doughnut, Line } from 'react-chartjs-2';
+import { Bar, Doughnut } from 'react-chartjs-2';
+import CovidApi from '../CovidApi'
+import { DailyStatsChart } from './DailyStatsChart';
 
 export const Charts = ({ stats }) => {
 
@@ -23,29 +24,17 @@ export const Charts = ({ stats }) => {
     }
   };
 
-  const [dailyData, setDailyData] = useState([]);
+  const [dailyStats, setDailyStats] = useState([]);
 
   useEffect(() => {
 
-    let url = `https://disease.sh/v3/covid-19/historical/${stats.country ? stats.country : 'all'}?lastdays=365`;
-    console.log('url', url);
-    axios.get(url)
-      .then((res) => {
-        const resData = stats.country ? res.data.timeline : res.data;
-        console.log('resData', resData);
-        let data = Object.entries(resData.cases).map(
-          ([key, value]) => {
-            return {
-              date: new Date(key),
-              infected: Number(value),
-              recovered: Number(resData.recovered[key]),
-              deaths: Number(resData.deaths[key])
-            };
-          });
-        console.log('daily data', data);
+    const GetDailyStats = async () => {
+      let res = await CovidApi.GetDailyStats(stats.country);
+      setDailyStats(res);
+    }
+    GetDailyStats();
 
-        setDailyData(data);
-      });
+
   }, [stats.country]);
 
 
@@ -61,38 +50,11 @@ export const Charts = ({ stats }) => {
         </Grid>
 
         <Grid item xs={12} md={10}>
-          <Line
-            data={{
-              labels: dailyData.map(({ date }) => new Date(date).toLocaleDateString()),
-              datasets: [{
-                data: dailyData.map((data) => data.infected),
-                label: 'Infected',
-                borderColor: 'rgba(0, 0, 255, 0.5)',
-                fill: false,
-              }, {
-                data: dailyData.map((data) => data.deaths),
-                label: 'Deaths',
-                borderColor: 'rgba(255, 0, 0, 0.5)',
-                fill: false,
-              }, {
-                data: dailyData.map((data) => data.recovered),
-                label: 'Recovered',
-                borderColor: 'rgba(0, 255, 0, 0.5)',
-                fill: false,
-              },
-              ],
-            }}
-            options={{
-              title: {
-                display: true,
-                text: `Historical data over last year: ${stats.country ? stats.country : 'Worldwide'}`
-              },
-              legend: {
-                display: false
-              }
-            }}></Line>
+          <DailyStatsChart stats={stats} dailyStats={dailyStats}/>
         </Grid>
       </Grid>
     </Box>
   );
 };
+
+

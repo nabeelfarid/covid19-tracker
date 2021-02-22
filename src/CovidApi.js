@@ -15,12 +15,10 @@ const GetCountries = async () => {
     //         })
     // })
 
-    
-    
     // Simpler Implementation using async await
     try {
         // original link 'https://disease.sh/v3/covid-19/countries
-        // hoever the above link gets countries that doesn't have historical data
+        // however the above link includes countries that doesn't have historical data available
         // So using the other api link to only get the list of countries that has historical data available
         const res = await axios.get('https://disease.sh/v3/covid-19/historical?lastdays=1')
         let countries = res.data.map(obj => obj.country)
@@ -34,9 +32,9 @@ const GetCountries = async () => {
 
 const GetStats = async (country) => {
 
-    const url = country ?
-        `https://disease.sh/v3/covid-19/countries/${country}` :
-        'https://disease.sh/v3/covid-19/all';
+    const url = `https://disease.sh/v3/covid-19/${country? `countries/${country}` :  'all'}`
+    console.log('Get Stats url', url);
+    
     try {
         let res = await axios.get(url)
         console.log("Stats", res)
@@ -54,9 +52,42 @@ const GetStats = async (country) => {
 
 }
 
+const GetDailyStats = async (country) => {
+    
+    //calculate the number of days since 1st Jan 2019
+    const dateDiffInMiliSec = new Date() - new Date("01/01/2019");   
+    const milliSecPerDay = (1000 * 60 * 60 * 24);
+    var days = Math.ceil(dateDiffInMiliSec / milliSecPerDay); 
+
+    const url = `https://disease.sh/v3/covid-19/historical/${country ? country : 'all'}?lastdays=${days}`;
+    console.log('Get Daily Stats url', url);
+
+    try {
+        let res = await axios.get(url)
+        const resData = country ? res.data.timeline : res.data;
+
+        //change the scheme such that each day has its corresponding stats
+        let data = Object.entries(resData.cases).map(
+            ([key, value]) => {
+                return {
+                    date: new Date(key),
+                    infected: Number(value),
+                    recovered: Number(resData.recovered[key]),
+                    deaths: Number(resData.deaths[key])
+                };
+            });
+        console.log('Daily Stats', data);
+        return data;
+        
+    } catch (error) {
+        return error;
+    }
+}
+
 const CovidApi = {
     GetCountries: GetCountries,
-    GetStats: GetStats
+    GetStats: GetStats,
+    GetDailyStats: GetDailyStats
 };
 
 export default CovidApi;
